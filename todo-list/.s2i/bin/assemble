@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "This is my custom assemble script"
+
+/usr/local/s2i/assemble
+
+echo "This is my custom assemble script done"
