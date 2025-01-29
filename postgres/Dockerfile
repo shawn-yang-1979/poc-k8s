@@ -2,20 +2,13 @@ FROM postgres:12
 
 # Reference: https://suedbroecker.net/2020/06/23/run-a-postgressql-container-as-a-non-root-user-in-openshift/
 # Create the needed temp file before the first postgreSQL execution
-
 RUN mkdir temp
-
-# Create group and user
-
-RUN groupadd non-root-postgres-group
-RUN useradd non-root-postgres-user --group non-root-postgres-group
 
 # Set user rights to allow the on-root-postgres-user 
 # to access the temp folder
+RUN chgrp -R 0 /temp
+RUN chmod -R g=u /temp
+RUN chgrp -R 0 /var/run/postgresql
+RUN chmod -R g=u /var/run/postgresql
 
-RUN chown -R non-root-postgres-user:non-root-postgres-group /temp
-RUN chmod 777 /temp
-
-# Change to non-root privilege
-
-USER non-root-postgres
+USER 1001
