@@ -1,6 +1,4 @@
 FROM postgres:12
 
-RUN chown -R 1004780000:0 /var/lib/postgresql/data && \
-    chown -R 1004780000:0 /var/run/postgresql && \
-    chmod -R g=u /var/lib/postgresql/data && \ 
-    chmod -R g=u /var/run/postgresql
+RUN chmod -R 777 /var/lib/postgresql/data && \ 
+    chmod -R 777 /var/run/postgresql
