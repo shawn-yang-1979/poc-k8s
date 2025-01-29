@@ -102,7 +102,23 @@ items:
     selector:
       deploymentconfig: postgres-from-source
     strategy:
-      resources: {}
+      type: Recreate
+      recreateParams:
+        pre:
+          failurePolicy: Abort
+          execNewPod:
+            containerName: postgres-from-source
+            command: ["echo", "password is $(POSTGRES_PASSWORD)"]
+        mid:
+          failurePolicy: Abort
+          execNewPod:
+            containerName: postgres-from-source
+            command: ["echo", "recreating"]           
+        post:
+          failurePolicy: Abort
+          execNewPod:
+            containerName: postgres-from-source
+            command: ["echo", "done"]
     template:
       metadata:
         annotations:
