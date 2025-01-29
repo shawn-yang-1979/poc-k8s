@@ -115,6 +115,8 @@ items:
         - env:
           - name: POSTGRES_PASSWORD
             value: postgrespw
+          - name: PGDATA
+            value: /temp/data            
           image: postgres-from-source:latest
           name: postgres-from-source
           ports:
