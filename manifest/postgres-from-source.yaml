@@ -10,34 +10,6 @@ items:
       app: postgres-from-source
       app.kubernetes.io/component: postgres-from-source
       app.kubernetes.io/instance: postgres-from-source
-    name: postgres
-  spec:
-    lookupPolicy:
-      local: false
-    tags:
-    - annotations:
-        openshift.io/imported-from: postgres:12
-      from:
-        kind: DockerImage
-        name: postgres:12
-      generation: null
-      importPolicy:
-        importMode: Legacy
-      name: "12"
-      referencePolicy:
-        type: ""
-  status:
-    dockerImageRepository: ""
-- apiVersion: image.openshift.io/v1
-  kind: ImageStream
-  metadata:
-    annotations:
-      openshift.io/generated-by: OpenShiftNewApp
-    creationTimestamp: null
-    labels:
-      app: postgres-from-source
-      app.kubernetes.io/component: postgres-from-source
-      app.kubernetes.io/instance: postgres-from-source
     name: postgres-from-source
   spec:
     lookupPolicy:
@@ -67,19 +39,22 @@ items:
       contextDir: postgres
       git:
         uri: https://github.com/shawn-yang-1979/examples
+      sourceSecret:
+        name: github
       type: Git
     strategy:
       dockerStrategy:
         from:
           kind: ImageStreamTag
           name: postgres:12
+          namespace: shawn-yang-ibm-dev
       type: Docker
     triggers:
     - github:
-        secret: 8OsvFkrupPkhFgEMdEiJ
+        secret: SoY84AJL-MahL5iC5wIC
       type: GitHub
     - generic:
-        secret: mPduj_MWwHclmgYBQr32
+        secret: eUrIBU6j3Wf-LWrgLARi
       type: Generic
     - type: ConfigChange
     - imageChange: {}
@@ -129,10 +104,10 @@ items:
       spec:
         containers:
         - env:
+          - name: PGDATA
+            value: /temp/data
           - name: POSTGRES_PASSWORD
             value: postgrespw
-          - name: PGDATA
-            value: /temp/data            
           image: postgres-from-source:latest
           name: postgres-from-source
           ports:
