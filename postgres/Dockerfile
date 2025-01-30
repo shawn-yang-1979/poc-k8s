@@ -4,13 +4,13 @@ FROM postgres:12
 # Create the needed temp file before the first postgreSQL execution
 RUN mkdir /temp
 
-VOLUME /temp
-
 # Set user rights to allow the on-root-postgres-user 
 # to access the temp folder
 RUN chgrp -R 0 /temp
 RUN chmod -R g=u /temp
 RUN chgrp -R 0 /var/run/postgresql
 RUN chmod -R g=u /var/run/postgresql
+
+VOLUME /temp
 
 USER postgres
