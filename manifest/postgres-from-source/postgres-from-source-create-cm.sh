@@ -1,0 +1,1 @@
+oc create cm postgres-initdb --from-file=initdb.sql

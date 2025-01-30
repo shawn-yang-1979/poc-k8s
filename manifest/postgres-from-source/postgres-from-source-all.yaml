@@ -115,11 +115,17 @@ items:
             protocol: TCP
           resources: {}
           volumeMounts:
-          - mountPath: /var/lib/postgresql/data
-            name: postgres-from-source-volume-1
+          - mountPath: /temp
+            name: data
+          - mountPath: /docker-entrypoint-initdb.d
+            name: initdb
         volumes:
-        - emptyDir: {}
-          name: postgres-from-source-volume-1
+        - name: data
+          persistentVolumeClaim:
+            claimName: postgres-data
+        - configMap:
+            name: postgres-initdb
+          name: initdb
     test: false
     triggers:
     - type: ConfigChange

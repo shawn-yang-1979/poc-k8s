@@ -45,11 +45,11 @@ spec:
               key: database-user
               name: postgresql
         - name: SPRING_DATASOURCE_PASSWORD
-          value: "$(DATABASE_PASSWORD)"
+          value: "postgrespw"
         - name: SPRING_DATASOURCE_URL
-          value: "jdbc:postgresql://postgresql:5432/$(DATABASE_NAME)"
+          value: "jdbc:postgresql://postgres-from-source:5432/postgres"
         - name: SPRING_DATASOURCE_USERNAME
-          value: "$(DATABASE_USER)"              
+          value: "postgres"              
         image: docker.io/shawnyang/todo-list@sha256:34600cb565242b7723d6f1736c2abab931af2cba06572c3c6d715150a69d743c
         imagePullPolicy: IfNotPresent
         name: todo-list
