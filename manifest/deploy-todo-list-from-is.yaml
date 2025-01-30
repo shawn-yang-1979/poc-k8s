@@ -7,7 +7,6 @@ metadata:
     app.kubernetes.io/instance: todo-list-from-is
     app.kubernetes.io/name: todo-list
   name: todo-list-from-is
-  namespace: shawn-yang-ibm-dev
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
