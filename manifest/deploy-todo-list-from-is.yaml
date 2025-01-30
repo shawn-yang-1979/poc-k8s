@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: todo-list-from-is
+    app.kubernetes.io/component: todo-list-from-is
+    app.kubernetes.io/instance: todo-list-from-is
+    app.kubernetes.io/name: todo-list
+  name: todo-list-from-is
+  namespace: shawn-yang-ibm-dev
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      deployment: todo-list-from-is
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: null
+      labels:
+        deployment: todo-list-from-is
+    spec:
+      containers:
+      - env:
+        - name: DATABASE_NAME
+          valueFrom:
+            secretKeyRef:
+              key: database-name
+              name: postgresql
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: database-password
+              name: postgresql
+        - name: DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              key: database-user
+              name: postgresql
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: "$(DATABASE_PASSWORD)"
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:postgresql://postgresql:5432/$(DATABASE_NAME)"
+        - name: SPRING_DATASOURCE_USERNAME
+          value: "$(DATABASE_USER)"              
+        image: docker.io/shawnyang/todo-list@sha256:34600cb565242b7723d6f1736c2abab931af2cba06572c3c6d715150a69d743c
+        imagePullPolicy: IfNotPresent
+        name: todo-list
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
