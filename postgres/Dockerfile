@@ -11,4 +11,4 @@ RUN chmod -R g=u /temp
 RUN chgrp -R 0 /var/run/postgresql
 RUN chmod -R g=u /var/run/postgresql
 
-USER 1001
+USER postgres
