@@ -29,29 +29,33 @@ spec:
     spec:
       containers:
       - env:
-        - name: DATABASE_NAME
+        - name: DATASOURCE_PASSWORD
           valueFrom:
             secretKeyRef:
-              key: database-name
-              name: postgresql
-        - name: DATABASE_PASSWORD
+              key: PASSWORD
+              name: todo-list-postgres-account
+        - name: DATASOURCE_USERNAME
           valueFrom:
             secretKeyRef:
-              key: database-password
-              name: postgresql
-        - name: DATABASE_USER
-          valueFrom:
-            secretKeyRef:
-              key: database-user
-              name: postgresql
+              key: USER
+              name: todo-list-postgres-account              
         - name: SPRING_DATASOURCE_PASSWORD
-          value: "postgrespw"
+          value: "$(DATASOURCE_PASSWORD)"
         - name: SPRING_DATASOURCE_URL
           value: "jdbc:postgresql://postgres-from-source:5432/postgres"
         - name: SPRING_DATASOURCE_USERNAME
-          value: "postgres"              
-        image: docker.io/shawnyang/todo-list@sha256:34600cb565242b7723d6f1736c2abab931af2cba06572c3c6d715150a69d743c
+          value: "$(DATASOURCE_USERNAME)"
+        image: docker.io/shawnyang/todo-list@sha256:c8ec1b87dbf76982a2ef1c9b04ab07090361f0c027fe90ac93fb58878f834ceb
         imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /actuator/health
+            port: 8080
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
         name: todo-list
         ports:
         - containerPort: 8080
