@@ -1,0 +1,11 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: todo-list-from-k
+spec:
+  host: todo-list-from-k-shawn-yang-ibm-dev.apps.rm2.thpm.p1.openshiftapps.com
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: todo-list-from-k

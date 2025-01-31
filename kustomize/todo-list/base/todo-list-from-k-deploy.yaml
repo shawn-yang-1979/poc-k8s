@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-list-from-k
+  annotations:
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"todo-list:latest","namespace":"shawn-yang-ibm-dev"},"fieldPath":"spec.template.spec.containers[?(@.name==\"todo-list\")].image"}]'  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: todo-list-from-k
+  template:
+    metadata:
+      labels:
+        deployment: todo-list-from-k
+    spec:
+      containers:
+      - env:
+        - name: DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: PASSWORD
+              name: todo-list-from-k-postgres-account-secret
+        - name: DATASOURCE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: USER
+              name: todo-list-from-k-postgres-account-secret
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: $(DATASOURCE_PASSWORD)
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://postgres-from-source:5432/postgres
+        - name: SPRING_DATASOURCE_USERNAME
+          value: $(DATASOURCE_USERNAME)
+        image: docker.io/shawnyang/todo-list@sha256:c8ec1b87dbf76982a2ef1c9b04ab07090361f0c027fe90ac93fb58878f834ceb
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+            scheme: HTTP
+        name: todo-list
+        ports:
+        - containerPort: 8080
+          protocol: TCP

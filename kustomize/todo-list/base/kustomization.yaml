@@ -1,0 +1,8 @@
+resources:
+- todo-list-from-k-postgres-account-secret.yaml
+- todo-list-from-k-deploy.yaml
+- todo-list-from-k-service.yaml
+- todo-list-from-k-route.yaml
+
+commonLabels:
+  app: todo-list-from-k
