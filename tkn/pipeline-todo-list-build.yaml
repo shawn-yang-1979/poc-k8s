@@ -1,0 +1,42 @@
+﻿apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: todo-list-build
+spec:
+  params:
+    - default: 'https://github.com/shawn-yang-1979/examples'
+      name: GIT_REPO
+      type: string
+    - default: 'image-registry.openshift-image-registry.svc:5000/shawn-yang-ibm-dev/todo-list-from-tkn'
+      name: PUSH_IMAGE_TO
+      type: string
+    - default: ./todo-list
+      name: PATH_CONTEXT
+      type: string
+  tasks:
+    - name: git-clone
+      params:
+        - name: url
+          value: $(params.GIT_REPO)
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared
+    - name: s2i-java
+      params:
+        - name: PATH_CONTEXT
+          value: $(params.PATH_CONTEXT)
+        - name: IMAGE
+          value: $(params.PUSH_IMAGE_TO)
+      runAfter:
+        - git-clone
+      taskRef:
+        kind: ClusterTask
+        name: s2i-java
+      workspaces:
+        - name: source
+          workspace: shared
+  workspaces:
+    - name: shared
