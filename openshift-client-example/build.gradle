@@ -27,6 +27,8 @@ subprojects {
 		    mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
 	    }        
 	    dependencies {
+	        dependency 'io.fabric8:openshift-client:6.13.5'
+            dependency 'io.fabric8:openshift-server-mock:6.13.5'
         }
     }
     
