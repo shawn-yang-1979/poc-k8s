@@ -1,0 +1,5 @@
+rootProject.name = 'openshift-client-example'
+include('openshift-client-example-main')
+include('openshift-client-example-adapter')
+include('openshift-client-example-usecase')
+include('openshift-client-example-domain')

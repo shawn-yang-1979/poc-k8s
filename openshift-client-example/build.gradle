@@ -1,0 +1,56 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.18' apply false
+}
+
+subprojects {
+    apply plugin: 'maven-publish'
+    apply plugin: 'java-library'
+    apply plugin: 'io.spring.dependency-management'
+
+    group = 'com.example'
+
+    sourceCompatibility = '8'
+    
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+    
+	repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+    
+    dependencyManagement {
+	    imports {
+		    mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+	    }        
+	    dependencies {
+        }
+    }
+    
+	publishing {
+		publications {
+			jar(MavenPublication) {
+				from components.java
+                versionMapping {
+                    usage('java-api') {
+                        fromResolutionOf('runtimeClasspath')
+                    }
+                    usage('java-runtime') {
+                        fromResolutionResult()
+                    }
+                }			
+			}
+		}
+	}
+	
+	test {
+	    useJUnitPlatform()
+    }
+    
+    java {
+        withSourcesJar()
+    }
+}
