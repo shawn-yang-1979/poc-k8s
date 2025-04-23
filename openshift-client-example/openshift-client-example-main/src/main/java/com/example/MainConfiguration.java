@@ -1,14 +1,21 @@
 package com.example;
 
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 import io.fabric8.kubernetes.client.Config;
 import io.fabric8.kubernetes.client.ConfigBuilder;
 import io.fabric8.kubernetes.client.KubernetesClientBuilder;
 import io.fabric8.openshift.client.OpenShiftClient;
 
 @Configuration
-public class OpenShiftClientConfiguration {
+public class MainConfiguration {
+
+  @Bean
+  RestTemplate restTemplate(RestTemplateBuilder builder) {
+    return builder.build();
+  }
 
   @Bean
   OpenShiftClient openShiftClient(OpenShiftClientProperties properties) {
