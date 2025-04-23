@@ -16,6 +16,8 @@ dependencies {
     testImplementation 'io.fabric8:openshift-server-mock'
 	
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'	
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 }
 
 publishing {
