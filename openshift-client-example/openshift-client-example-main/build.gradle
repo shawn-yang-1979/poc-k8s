@@ -6,6 +6,7 @@ dependencies {
 	implementation project(':openshift-client-example-adapter')
 	
 	implementation 'org.springframework.boot:spring-boot-autoconfigure'
+	implementation 'org.springframework:spring-web'
 	implementation 'io.fabric8:openshift-client'
 	
 	runtimeOnly 'org.springframework.boot:spring-boot-starter-actuator'
