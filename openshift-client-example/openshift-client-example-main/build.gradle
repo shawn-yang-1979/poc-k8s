@@ -9,6 +9,8 @@ dependencies {
 	implementation 'io.fabric8:openshift-client'
 	
 	runtimeOnly 'org.springframework.boot:spring-boot-starter-actuator'
+    runtimeOnly 'org.springframework.boot:spring-boot-starter-web'
+    runtimeOnly 'org.springdoc:springdoc-openapi-ui'
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.fabric8:openshift-server-mock'

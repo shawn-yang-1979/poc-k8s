@@ -1,3 +1,5 @@
 dependencies {
 	api project(':openshift-client-example-usecase')
+	implementation 'org.springframework:spring-web'
+	implementation 'io.fabric8:openshift-client-api'
 }
