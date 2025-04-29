@@ -6,7 +6,9 @@ dependencies {
 	implementation project(':spring-boot-admin-example-adapter')
 	
 	implementation 'org.springframework.boot:spring-boot-autoconfigure'
-	implementation 'org.springframework:spring-web'
+    implementation 'org.springframework.cloud:spring-cloud-commons'	
+    implementation 'de.codecentric:spring-boot-admin-server'
+    implementation 'org.springframework:spring-context'
 	
     runtimeOnly 'org.springframework.boot:spring-boot-starter-web'
     runtimeOnly 'org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8'    
