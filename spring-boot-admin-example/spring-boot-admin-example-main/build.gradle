@@ -1,0 +1,26 @@
+plugins {
+	id 'org.springframework.boot'
+}
+
+dependencies {
+	implementation project(':spring-boot-admin-example-adapter')
+	
+	implementation 'org.springframework.boot:spring-boot-autoconfigure'
+	implementation 'org.springframework:spring-web'
+	
+    runtimeOnly 'org.springframework.boot:spring-boot-starter-web'
+    runtimeOnly 'org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8'    
+    runtimeOnly 'de.codecentric:spring-boot-admin-starter-server'
+	
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+publishing {
+	publications {
+		bootJar(MavenPublication) {
+			artifact tasks.named("bootJar")
+		}
+	}
+}

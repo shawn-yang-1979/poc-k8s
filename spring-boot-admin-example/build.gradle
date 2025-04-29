@@ -1,0 +1,59 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.18' apply false
+}
+
+subprojects {
+    apply plugin: 'maven-publish'
+    apply plugin: 'java-library'
+    apply plugin: 'io.spring.dependency-management'
+
+    group = 'com.example'
+
+    sourceCompatibility = '8'
+    
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+    
+	repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+    
+    dependencyManagement {
+	    imports {
+		    mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2021.0.9' // 2021.0.x aka Jubilee compatible with spring boot 2.7.x	
+            mavenBom 'de.codecentric:spring-boot-admin-dependencies:2.7.16' // 2.7.x to compatible with spring boot 2.7.x
+	    }
+	    dependencies {
+            dependency 'org.springdoc:springdoc-openapi-ui:1.8.0'	    
+        }
+    }
+    
+	publishing {
+		publications {
+			jar(MavenPublication) {
+				from components.java
+                versionMapping {
+                    usage('java-api') {
+                        fromResolutionOf('runtimeClasspath')
+                    }
+                    usage('java-runtime') {
+                        fromResolutionResult()
+                    }
+                }			
+			}
+		}
+	}
+	
+	test {
+	    useJUnitPlatform()
+    }
+    
+    java {
+        withSourcesJar()
+    }
+}

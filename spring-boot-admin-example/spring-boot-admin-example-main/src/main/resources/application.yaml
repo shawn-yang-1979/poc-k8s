@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: false # true when service account has permission
+        
+---
+# activate this profile on all non-local environment, for example, dev, uat, prd
+# we need to disable all db change management solution, spring natvie, liquibase, when deploying non local environment.
+# It is the CICD pipeline will execute the liquibase before code deployment.
+spring:
+  config:
+    activate:
+      on-profile:
+        - local
+  cloud:
+    kubernetes:
+      client:
+        master-url: https://api.rm2.thpm.p1.openshiftapps.com:6443
+        oauth-token: sha256~jXRG22OVXR-V8a1pB6_nSfGpCPOlJC30k44u_xqUtIs
+        namespace: shawn-yang-ibm-dev

@@ -1,0 +1,5 @@
+rootProject.name = 'spring-boot-admin-example'
+include('spring-boot-admin-example-main')
+include('spring-boot-admin-example-adapter')
+include('spring-boot-admin-example-usecase')
+include('spring-boot-admin-example-domain')
