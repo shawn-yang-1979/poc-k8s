@@ -1,12 +1,17 @@
 spring:
-  cloud:
-    kubernetes:
+  boot:
+    admin:
       discovery:
-        all-namespaces: false # true when service account has --all-namespaces permission
-        service-labels:
-          spring-boot: true
-          env: sandbox
-
+        services:
+        - todo-list
+        - spring-boot-admin-example
+#  cloud:
+#    kubernetes:
+#      discovery:
+#        all-namespaces: true # discover services in any namespace, need --all-namespaces permission
+#        service-labels: # label filters
+#          spring-boot: true
+#          env: sandbox
 management:
   endpoints:
     web:
