@@ -2,7 +2,7 @@ spring:
   cloud:
     kubernetes:
       discovery:
-        all-namespaces: false # true when service account has permission
+        all-namespaces: false # true when service account has --all-namespaces permission
         service-labels:
           spring-boot: true
           env: sandbox
