@@ -3,8 +3,10 @@ spring:
     kubernetes:
       discovery:
         all-namespaces: false # true when service account has permission
+        service-labels:
+          spring-boot: true
+          env: sandbox
 
-        
 management:
   endpoints:
     web:
