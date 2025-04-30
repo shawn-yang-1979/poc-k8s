@@ -3,7 +3,14 @@ spring:
     kubernetes:
       discovery:
         all-namespaces: false # true when service account has permission
+
         
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 ---
 # activate this profile on all non-local environment, for example, dev, uat, prd
 # we need to disable all db change management solution, spring natvie, liquibase, when deploying non local environment.
