@@ -9,8 +9,9 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-commons'	
     implementation 'de.codecentric:spring-boot-admin-server'
     implementation 'org.springframework:spring-context'
-	
+
     runtimeOnly 'org.springframework.boot:spring-boot-starter-web'
+    runtimeOnly 'org.springframework.boot:spring-boot-starter-security'
     runtimeOnly 'org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8'    
     runtimeOnly 'de.codecentric:spring-boot-admin-starter-server'
 	

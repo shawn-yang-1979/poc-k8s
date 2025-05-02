@@ -12,6 +12,11 @@ spring:
 #        service-labels: # label filters
 #          spring-boot: true
 #          env: sandbox
+  security:
+    user:
+      name: "username"
+      password: "password"
+
 management:
   endpoints:
     web:
@@ -31,5 +36,5 @@ spring:
     kubernetes:
       client:
         master-url: https://api.rm2.thpm.p1.openshiftapps.com:6443
-        oauth-token: sha256~jXRG22OVXR-V8a1pB6_nSfGpCPOlJC30k44u_xqUtIs
+        oauth-token: sha256~R-DK47tofjEKdbUcDoaNri6eCBRH0X0kMYhNWNXUvGc
         namespace: shawn-yang-ibm-dev
