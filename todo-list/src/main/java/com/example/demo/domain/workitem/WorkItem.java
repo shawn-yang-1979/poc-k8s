@@ -1,11 +1,11 @@
 package com.example.demo.domain.workitem;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OptimisticLockException;
-import jakarta.persistence.Version;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OptimisticLockException;
+import javax.persistence.Version;
 
 @Entity
 public class WorkItem {

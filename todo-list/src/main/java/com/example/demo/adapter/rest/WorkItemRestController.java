@@ -1,7 +1,6 @@
 package com.example.demo.adapter.rest;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,8 +16,11 @@ import com.example.demo.domain.workitem.WorkItemRepository;
 @RequestMapping(path = "/work-items")
 public class WorkItemRestController {
 
-  @Autowired
-  private WorkItemRepository workItemRepository;
+  private final WorkItemRepository workItemRepository;
+
+  public WorkItemRestController(WorkItemRepository workItemRepository) {
+    this.workItemRepository = workItemRepository;
+  }
 
   @GetMapping
   public List<WorkItem> getAll() {
@@ -27,7 +29,7 @@ public class WorkItemRestController {
 
   @GetMapping(path = "/{id}")
   public WorkItem get(@PathVariable("id") Long id) {
-    return workItemRepository.findById(id).orElseThrow();
+    return workItemRepository.findById(id).orElseThrow(IllegalStateException::new);
   }
 
   @PostMapping
@@ -38,16 +40,16 @@ public class WorkItemRestController {
   }
 
   @PutMapping(path = "/{id}")
-  public void put(@PathVariable("id") Long id, @RequestBody Put param) {
-    WorkItem workItem = workItemRepository.findById(id).orElseThrow();
+  public void put(Long id, @RequestBody Put param) {
+    WorkItem workItem = workItemRepository.findById(id).orElseThrow(IllegalStateException::new);
     workItem.throwIfConflict(param.getVersion());
     workItem.setDescription(param.getDescription());
     workItemRepository.save(workItem);
   }
 
   @DeleteMapping(path = "/{id}")
-  public void delete(@PathVariable("id") Long id, @RequestBody Delete param) {
-    WorkItem workItem = workItemRepository.findById(id).orElseThrow();
+  public void delete(Long id, @RequestBody Delete param) {
+    WorkItem workItem = workItemRepository.findById(id).orElseThrow(IllegalStateException::new);
     workItem.throwIfConflict(param.getVersion());
     workItemRepository.delete(workItem);
   }

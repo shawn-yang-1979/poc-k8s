@@ -3,7 +3,7 @@ WORKDIR /workspace
 COPY src src
 COPY pom.xml pom.xml
 RUN mvn clean install
-WORKDIR target
+WORKDIR /workspace/target
 RUN cp *.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
