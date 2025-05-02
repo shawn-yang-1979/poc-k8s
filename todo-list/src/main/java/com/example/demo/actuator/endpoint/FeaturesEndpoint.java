@@ -1,6 +1,8 @@
 package com.example.demo.actuator.endpoint;
 
+import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -12,21 +14,24 @@ import org.springframework.stereotype.Component;
 @Component
 @Endpoint(id = "features")
 public class FeaturesEndpoint {
-  private Map<String, Boolean> features = new ConcurrentHashMap<>();
+  private Map<String, Feature> features = new ConcurrentHashMap<>();
 
   @ReadOperation
-  public Map<String, Boolean> readFeatures() {
-    return features;
+  public Collection<Feature> readFeatures() {
+    return features.values();
   }
 
   @ReadOperation
-  public Boolean readFeature(@Selector String name) {
-    return features.get(name);
+  public Optional<Feature> readFeature(@Selector String name) {
+    return Optional.ofNullable(features.get(name));
   }
 
   @WriteOperation
-  public void writeFeature(@Selector String name, Boolean value) {
-    features.put(name, value);
+  public void writeFeature(@Selector String name, boolean value) {
+    Feature feature = new Feature();
+    feature.setName(name);
+    feature.setEnabled(value);
+    features.put(name, feature);
   }
 
   @DeleteOperation
@@ -34,4 +39,24 @@ public class FeaturesEndpoint {
     features.remove(name);
   }
 
+  public static class Feature {
+    private String name;
+    private boolean enabled;
+
+    public String getName() {
+      return name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    public boolean isEnabled() {
+      return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+      this.enabled = enabled;
+    }
+  }
 }
