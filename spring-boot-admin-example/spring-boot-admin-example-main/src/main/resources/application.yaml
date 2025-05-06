@@ -15,8 +15,8 @@ spring:
             user-password: ${spring.security.user.password}
   security:
     user:
-      name: username
-      password: password
+      name: changeit
+      password: changeit
 
 management:
   endpoints:
