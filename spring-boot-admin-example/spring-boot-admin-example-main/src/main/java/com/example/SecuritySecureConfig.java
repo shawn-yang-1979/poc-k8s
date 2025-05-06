@@ -14,9 +14,13 @@ import de.codecentric.boot.admin.server.config.AdminServerProperties;
 /**
  * Reference:
  * 
+ * https://docs.spring.io/spring-boot/docs/2.7.18/reference/htmlsingle/#actuator.endpoints.security
+ * 
  * https://docs.spring.io/spring-security/reference/5.7/servlet/configuration/java.html#_multiple_httpsecurity
  * 
  * https://docs.spring-boot-admin.com/2.7.14/#_securing_spring_boot_admin_server
+ * 
+ * https://www.youtube.com/watch?v=PczgM2L3w60
  * 
  */
 @Configuration(proxyBeanMethods = false)
@@ -41,7 +45,7 @@ public class SecuritySecureConfig {
 
   @Bean
   @Order(2)
-  SecurityFilterChain adminServerfilterChain(HttpSecurity http) throws Exception {
+  SecurityFilterChain adminServerFilterChain(HttpSecurity http) throws Exception {
     SavedRequestAwareAuthenticationSuccessHandler successHandler =
         new SavedRequestAwareAuthenticationSuccessHandler();
     successHandler.setTargetUrlParameter("redirectTo");
