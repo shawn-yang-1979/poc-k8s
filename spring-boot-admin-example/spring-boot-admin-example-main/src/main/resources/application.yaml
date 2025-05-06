@@ -5,17 +5,18 @@ spring:
         services:
         - todo-list
         - spring-boot-admin-example
-#  cloud:
-#    kubernetes:
-#      discovery:
-#        all-namespaces: true # discover services in any namespace, need --all-namespaces permission
-#        service-labels: # label filters
-#          spring-boot: true
-#          env: sandbox
+      ui:
+        remember-me-enabled: false
+      instance-auth:
+        enabled: true 
+        service-map:
+          spring-boot-admin-example: 
+            user-name: ${spring.security.user.name}
+            user-password: ${spring.security.user.password}
   security:
     user:
-      name: "username"
-      password: "password"
+      name: username
+      password: password
 
 management:
   endpoints:
