@@ -17,6 +17,8 @@ spring:
     user:
       name: changeit
       password: changeit
+  jmx:
+    enabled: true
 
 management:
   endpoints:
