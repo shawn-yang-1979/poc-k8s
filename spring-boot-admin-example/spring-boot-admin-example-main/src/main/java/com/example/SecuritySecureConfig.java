@@ -42,7 +42,10 @@ public class SecuritySecureConfig {
   @Order(1)
   SecurityFilterChain actuatorFilterChain(HttpSecurity http) throws Exception {
     http.antMatcher(this.adminServer.path("/actuator/**"))//
-        .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+        .authorizeHttpRequests(authorize -> authorize//
+            .antMatchers(this.adminServer.path("/actuator/info")).permitAll()//
+            .antMatchers(this.adminServer.path("/actuator/health/**")).permitAll()//
+            .anyRequest().authenticated())
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .httpBasic(Customizer.withDefaults())//

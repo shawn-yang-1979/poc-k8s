@@ -4,7 +4,6 @@ spring:
       ui:
         remember-me-enabled: false
       instance-auth:
-        enabled: true 
         service-map:
           spring-boot-admin-example: 
             user-name: ${spring.security.user.name}
