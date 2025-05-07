@@ -31,6 +31,13 @@ public class SecuritySecureConfig {
     this.adminServer = adminServer;
   }
 
+  /**
+   * This settings protect /actuator/** from exposing without basic authentication
+   * 
+   * @param http
+   * @return
+   * @throws Exception
+   */
   @Bean
   @Order(1)
   SecurityFilterChain actuatorFilterChain(HttpSecurity http) throws Exception {
@@ -43,6 +50,13 @@ public class SecuritySecureConfig {
     return http.build();
   }
 
+  /**
+   * This settings protect admin servicer's API from exposing without login authentication
+   * 
+   * @param http
+   * @return
+   * @throws Exception
+   */
   @Bean
   @Order(2)
   SecurityFilterChain adminServerFilterChain(HttpSecurity http) throws Exception {

@@ -16,6 +16,9 @@ dependencies {
     runtimeOnly 'org.springframework.boot:spring-boot-starter-security'
     runtimeOnly 'org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8'    
     runtimeOnly 'de.codecentric:spring-boot-admin-starter-server'
+    
+    // sba client compoment
+    runtimeOnly 'org.jolokia:jolokia-core'
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	
