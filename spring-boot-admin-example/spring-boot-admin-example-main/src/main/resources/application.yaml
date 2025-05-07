@@ -1,10 +1,6 @@
 spring:
   boot:
     admin:
-      discovery:
-        services:
-        - todo-list
-        - spring-boot-admin-example
       ui:
         remember-me-enabled: false
       instance-auth:
@@ -14,22 +10,20 @@ spring:
             user-name: ${spring.security.user.name}
             user-password: ${spring.security.user.password}
   security:
-    user:
-      name: changeit
-      password: changeit
+    user:  # username password need to be replaced from config map
+      name: changeit # SPRING_SECURITY_USER_NAME
+      password: changeit # SPRING_SECURITY_USER_PASSWORD
   jmx:
-    enabled: true
+    enabled: true # sba client
 
 management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: "*" # sba client
 
 ---
-# activate this profile on all non-local environment, for example, dev, uat, prd
-# we need to disable all db change management solution, spring natvie, liquibase, when deploying non local environment.
-# It is the CICD pipeline will execute the liquibase before code deployment.
+# activate this profile when you want to try connecting to ocp from your local to test discovery mechanism.
 spring:
   config:
     activate:
@@ -38,6 +32,5 @@ spring:
   cloud:
     kubernetes:
       client:
-        master-url: https://api.rm2.thpm.p1.openshiftapps.com:6443
-        oauth-token: sha256~R-DK47tofjEKdbUcDoaNri6eCBRH0X0kMYhNWNXUvGc
-        namespace: shawn-yang-ibm-dev
+        master-url: https://api.server.address:6443
+        oauth-token: the-token
