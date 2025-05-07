@@ -8,7 +8,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-autoconfigure'
     implementation 'org.springframework.cloud:spring-cloud-commons'	
     implementation 'de.codecentric:spring-boot-admin-server'
-    implementation 'org.springframework:spring-context'
     implementation 'org.springframework.security:spring-security-config'
     implementation 'org.springframework.security:spring-security-web'        
 
@@ -17,18 +16,10 @@ dependencies {
     runtimeOnly 'org.springframework.cloud:spring-cloud-starter-kubernetes-fabric8'    
     runtimeOnly 'de.codecentric:spring-boot-admin-starter-server'
     
-    // sba client compoment
+    // sba client
     runtimeOnly 'org.jolokia:jolokia-core'
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
-
-publishing {
-	publications {
-		bootJar(MavenPublication) {
-			artifact tasks.named("bootJar")
-		}
-	}
 }
